@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { fetchStats } from '../utils'
 
 /** @type {StoreState} */
 const initialState = {
@@ -6,8 +7,19 @@ const initialState = {
 }
 
 export default createStore({
+    strict: true,
     state: initialState,
-    mutations: {},
-    actions: {},
+    mutations: {
+        setStats(state, stats) {
+            console.log(stats)
+            state.stats = stats
+        },
+    },
+    actions: {
+        async fetchStats({ commit }) {
+            const stats = await fetchStats()
+            commit('setStats', stats)
+        },
+    },
     modules: {},
 })

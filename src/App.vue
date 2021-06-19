@@ -1,15 +1,26 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div>Yolo, {{ stats.length }} lijnen data</div>
+    <pre v-if="stats.length > 0"><code>{{ stats }}</code></pre>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
-    name: 'App',
-    components: {
-        HelloWorld,
+    components: {},
+    setup() {
+        const store = useStore()
+
+        if (!Array.isArray(store.state.stats)) {
+            store.dispatch('fetchStats')
+        }
+
+        console.log(store)
+
+        return {
+            stats: computed(() => store.state.stats || []),
+        }
     },
 }
 </script>

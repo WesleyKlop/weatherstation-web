@@ -9,5 +9,5 @@ export interface Stats {
 }
 
 export interface StoreState {
-    stats: Stats | null
+    stats: Array<Stats>|null
 }
