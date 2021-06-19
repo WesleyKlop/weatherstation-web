@@ -1,7 +1,12 @@
 import { createStore } from 'vuex'
 
+/** @type {StoreState} */
+const initialState = {
+    stats: null,
+}
+
 export default createStore({
-    state: {},
+    state: initialState,
     mutations: {},
     actions: {},
     modules: {},
