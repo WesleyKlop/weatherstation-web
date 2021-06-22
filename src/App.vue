@@ -7,15 +7,17 @@
 </template>
 
 <script>
-import HumidityChart from '@/components/HumidityChart'
-import TemperatureChart from '@/components/TemperatureChart'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
     components: {
-        TemperatureChart,
-        HumidityChart,
+        TemperatureChart: defineAsyncComponent(() =>
+            import('@/components/TemperatureChart.vue'),
+        ),
+        HumidityChart: defineAsyncComponent(() =>
+            import('@/components/HumidityChart.vue'),
+        ),
     },
     setup() {
         const store = useStore()
