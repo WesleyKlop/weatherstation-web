@@ -1,14 +1,19 @@
 <template>
-    <div>Yolo, {{ stats.length }} lijnen data</div>
-    <pre v-if="stats.length > 0"><code>{{ stats }}</code></pre>
+    <div class="p-4 flex flex-wrap gap-4">
+        <h1 class="title w-full">Weerstation</h1>
+        <TemperatureChart class="w-full lg:w-1/2" />
+    </div>
 </template>
 
 <script>
+import TemperatureChart from '@/components/TemperatureChart'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-    components: {},
+    components: {
+        TemperatureChart,
+    },
     setup() {
         const store = useStore()
 
@@ -16,22 +21,15 @@ export default {
             store.dispatch('fetchStats')
         }
 
-        console.log(store)
-
         return {
-            stats: computed(() => store.state.stats || []),
+            lines: computed(() => store.state.stats?.length),
         }
     },
 }
 </script>
 
-<style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+<style scoped>
+.title {
+    @apply text-xl font-bold;
 }
 </style>

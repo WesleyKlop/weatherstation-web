@@ -1,7 +1,9 @@
+import { formatDistanceToNowStrict, parseISO } from 'date-fns'
+import nl from 'date-fns/locale/nl'
+
 /**
  * @returns {Promise<Stats>}
  */
-// eslint-disable-next-line no-unused-vars
 export const fetchStats = () =>
     fetch('/api/stats', {
         cache: 'no-cache',
@@ -25,3 +27,22 @@ export const fetchStats = () =>
             console.error(err)
             return null
         })
+
+/**
+ * Convert ISO date string to relative format
+ * @param {string} label
+ * @returns {string}
+ */
+export const formatLabel = (label) =>
+    formatDistanceToNowStrict(parseISO(label), { locale: nl })
+
+/**
+ * Format a floating point to a temperature string.
+ * @param {number} value
+ * @returns {string}
+ */
+export const formatTemperature = (value) =>
+    new Intl.NumberFormat('nl-NL', {
+        style: 'unit',
+        unit: 'celsius',
+    }).format(value)

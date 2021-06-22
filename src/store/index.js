@@ -11,7 +11,6 @@ export default createStore({
     state: initialState,
     mutations: {
         setStats(state, stats) {
-            console.log(stats)
             state.stats = stats
         },
     },
