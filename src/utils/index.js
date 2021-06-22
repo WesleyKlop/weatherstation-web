@@ -46,3 +46,9 @@ export const formatTemperature = (value) =>
         style: 'unit',
         unit: 'celsius',
     }).format(value)
+
+export const formatHumidity = (value) =>
+    new Intl.NumberFormat('nl-NL', {
+        style: 'unit',
+        unit: 'percent',
+    }).format(value)

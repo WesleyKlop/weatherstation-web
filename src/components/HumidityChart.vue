@@ -4,7 +4,7 @@
 
 <script>
 import '@/utils/chart-config'
-import { formatLabel, formatTemperature } from '@/utils'
+import { formatHumidity, formatLabel } from '@/utils'
 import { computed } from 'vue'
 import { Bar } from 'vue-chart-3'
 import { useStore } from 'vuex'
@@ -32,9 +32,9 @@ const CHART_OPTIONS = {
         },
         y: {
             stacked: true,
-            min: 21,
-            max: 25,
-            title: { display: true, text: 'Temperatuur in °C' },
+            min: 40,
+            max: 60,
+            title: { display: true, text: 'Luchtvochtigheid in %' },
         },
     },
     plugins: {
@@ -45,11 +45,11 @@ const CHART_OPTIONS = {
                     if (context.datasetIndex === 0) {
                         const set = context.chart.data.datasets[0]
                         const value = set.data[context.dataIndex].toFixed(2)
-                        return `${label}: ${formatTemperature(value)}`
+                        return `${label}: ${formatHumidity(value)}`
                     }
                     const set = context.chart.data.datasets[1]
                     const values = set.data[context.dataIndex]
-                        .map((value) => formatTemperature(value))
+                        .map((value) => formatHumidity(value))
                         .join(' - ')
 
                     return `${label}: ${values}`
@@ -70,10 +70,10 @@ export default {
                 ?.reverse()
                 ?.reduce((acc, curr) => {
                     acc.labels.push(formatLabel(curr.moment))
-                    acc.datasets[0].data.push(curr.temperature)
+                    acc.datasets[0].data.push(curr.humidity)
                     acc.datasets[1].data.push([
-                        curr.minTemperature,
-                        curr.maxTemperature,
+                        curr.minHumidity,
+                        curr.maxHumidity,
                     ])
                     return acc
                 }, CHART_CONFIG),

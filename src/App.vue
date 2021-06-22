@@ -1,11 +1,13 @@
 <template>
     <div class="p-4 flex flex-wrap gap-4">
         <h1 class="title w-full">Weerstation</h1>
-        <TemperatureChart class="w-full lg:w-1/2" />
+        <TemperatureChart class="w-full lg:w-1/2 flex-1" />
+        <HumidityChart class="w-full lg:w-1/2 flex-1" />
     </div>
 </template>
 
 <script>
+import HumidityChart from '@/components/HumidityChart'
 import TemperatureChart from '@/components/TemperatureChart'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
@@ -13,6 +15,7 @@ import { useStore } from 'vuex'
 export default {
     components: {
         TemperatureChart,
+        HumidityChart,
     },
     setup() {
         const store = useStore()
