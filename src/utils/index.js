@@ -5,7 +5,7 @@ import nl from 'date-fns/locale/nl'
  * @returns {Promise<Stats>}
  */
 export const fetchStats = () =>
-    fetch('/api/stats', {
+    fetch('/api/stats?limit=12', {
         cache: 'no-cache',
         headers: {
             Accept: 'application/json',
@@ -14,7 +14,7 @@ export const fetchStats = () =>
         .then((response) => response.json())
         .then((result) =>
             result.map((data) => ({
-                moment: data.moment,
+                moment: parseISO(data.moment),
                 humidity: data.humidity,
                 minHumidity: data.min_humidity,
                 maxHumidity: data.max_humidity,
@@ -30,11 +30,11 @@ export const fetchStats = () =>
 
 /**
  * Convert ISO date string to relative format
- * @param {string} label
+ * @param {Date} label
  * @returns {string}
  */
 export const formatLabel = (label) =>
-    formatDistanceToNowStrict(parseISO(label), { locale: nl })
+    formatDistanceToNowStrict(label, { locale: nl })
 
 /**
  * Format a floating point to a temperature string.

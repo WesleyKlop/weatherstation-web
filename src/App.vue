@@ -1,36 +1,28 @@
 <template>
     <div class="p-4 flex flex-wrap gap-4">
         <h1 class="title w-full">Weerstation</h1>
-        <TemperatureChart class="w-full lg:w-1/2 flex-1" />
-        <HumidityChart class="w-full lg:w-1/2 flex-1" />
+        <TemperatureChart v-if="loaded" class="w-full lg:w-1/2 flex-1" />
+        <HumidityChart v-if="loaded" class="w-full lg:w-1/2 flex-1" />
     </div>
 </template>
 
-<script>
-import { computed, defineAsyncComponent } from 'vue'
+<script setup>
+import { defineAsyncComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 
-export default {
-    components: {
-        TemperatureChart: defineAsyncComponent(() =>
-            import('@/components/TemperatureChart.vue'),
-        ),
-        HumidityChart: defineAsyncComponent(() =>
-            import('@/components/HumidityChart.vue'),
-        ),
-    },
-    setup() {
-        const store = useStore()
+const loaded = ref(false)
+const TemperatureChart = defineAsyncComponent(() =>
+    import('@/components/TemperatureChart.vue'),
+)
+const HumidityChart = defineAsyncComponent(() =>
+    import('@/components/HumidityChart.vue'),
+)
 
-        if (!Array.isArray(store.state.stats)) {
-            store.dispatch('fetchStats')
-        }
-
-        return {
-            lines: computed(() => store.state.stats?.length),
-        }
-    },
-}
+const store = useStore()
+onMounted(async () => {
+    await store.dispatch('fetchStats')
+    loaded.value = true
+})
 </script>
 
 <style scoped>

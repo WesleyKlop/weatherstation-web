@@ -1,84 +1,21 @@
 <template>
-    <bar v-if="chart" :data="chart" :options="options" />
+    <BarChart :chart-data="chart" :options="options" />
 </template>
 
-<script>
+<script setup>
 import '@/utils/chart-config'
-import { formatHumidity, formatLabel } from '@/utils'
 import { computed } from 'vue'
-import { Bar } from 'vue-chart-3'
+import { BarChart } from 'vue-chart-3'
 import { useStore } from 'vuex'
+import {
+    createChartConfig,
+    createChartOptions,
+} from '@/utils/humidity-chart-config'
 
-const CHART_CONFIG = {
-    labels: [],
-    datasets: [
-        {
-            data: [],
-            borderColor: '#0EA5E9',
-            backgroundColor: '#0EA5E9',
-            label: 'Gemiddelde',
-            type: 'line',
-        },
-        { data: [], backgroundColor: '#F97316', label: 'Bereik' },
-    ],
-}
+const store = useStore()
 
-const CHART_OPTIONS = {
-    responsive: true,
-    scales: {
-        x: {
-            stacked: true,
-            title: { display: true, text: 'Tijd geleden' },
-        },
-        y: {
-            stacked: true,
-            min: 40,
-            max: 60,
-            title: { display: true, text: 'Luchtvochtigheid in %' },
-        },
-    },
-    plugins: {
-        tooltip: {
-            callbacks: {
-                label(context) {
-                    const label = context.dataset.label
-                    if (context.datasetIndex === 0) {
-                        const set = context.chart.data.datasets[0]
-                        const value = set.data[context.dataIndex].toFixed(2)
-                        return `${label}: ${formatHumidity(value)}`
-                    }
-                    const set = context.chart.data.datasets[1]
-                    const values = set.data[context.dataIndex]
-                        .map((value) => formatHumidity(value))
-                        .join(' - ')
-
-                    return `${label}: ${values}`
-                },
-            },
-        },
-    },
-}
-
-export default {
-    components: { Bar },
-    setup() {
-        const store = useStore()
-
-        const chart = computed(() =>
-            store.state.stats
-                ?.slice(0, 12)
-                ?.reverse()
-                ?.reduce((acc, curr) => {
-                    acc.labels.push(formatLabel(curr.moment))
-                    acc.datasets[0].data.push(curr.humidity)
-                    acc.datasets[1].data.push([
-                        curr.minHumidity,
-                        curr.maxHumidity,
-                    ])
-                    return acc
-                }, CHART_CONFIG),
-        )
-        return { chart, options: CHART_OPTIONS }
-    },
-}
+const chart = computed(() => createChartConfig(store.getters.mostRecentStats))
+const options = computed(() =>
+    createChartOptions(...store.getters.humidityBounds),
+)
 </script>

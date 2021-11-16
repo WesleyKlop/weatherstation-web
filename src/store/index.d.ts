@@ -1,4 +1,4 @@
-export interface Stats {
+interface Stats {
     moment: Date
     humidity: number
     minHumidity: number
@@ -8,6 +8,6 @@ export interface Stats {
     maxTemperature: number
 }
 
-export interface StoreState {
-    stats: Array<Stats>|null
+interface StoreState {
+    stats: Array<Stats> | null
 }
