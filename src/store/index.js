@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { fetchStats } from '../utils'
+import { fetchStats } from '@/utils'
 
 /** @type {StoreState} */
 const initialState = {
@@ -18,6 +18,29 @@ export default createStore({
         async fetchStats({ commit }) {
             const stats = await fetchStats()
             commit('setStats', stats)
+        },
+    },
+    getters: {
+        mostRecentStats(state) {
+            return state.stats?.slice(0, 12)?.reverse() ?? []
+        },
+        temperatureBounds(state, getters) {
+            return getters.mostRecentStats.reduce(
+                ([min, max], curr) => [
+                    Math.min(min, curr.minTemperature - 1),
+                    Math.max(max, curr.maxTemperature + 1),
+                ],
+                [100, -100],
+            )
+        },
+        humidityBounds(state, getters) {
+            return getters.mostRecentStats.reduce(
+                ([min, max], curr) => [
+                    Math.min(min, curr.minHumidity - 1),
+                    Math.max(max, curr.maxHumidity + 1),
+                ],
+                [101, -1],
+            )
         },
     },
     modules: {},
