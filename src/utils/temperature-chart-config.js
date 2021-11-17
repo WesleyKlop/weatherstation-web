@@ -19,12 +19,10 @@ const CHART_OPTIONS = () => ({
     scales: {
         x: {
             stacked: true,
-            title: { display: true, text: 'Tijd geleden' },
+            title: { display: true, text: 'Tijd' },
         },
         y: {
             stacked: true,
-            // min: 21,
-            // max: 25,
             title: { display: true, text: 'Temperatuur in °C' },
         },
     },

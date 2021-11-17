@@ -42,6 +42,14 @@ export default createStore({
                 [101, -1],
             )
         },
+        dateRange(state, getters) {
+            const mostRecentStats = getters.mostRecentStats
+            if (mostRecentStats.length < 2) {
+                return null
+            }
+
+            return [mostRecentStats.at(0).moment, mostRecentStats.at(-1).moment]
+        },
     },
     modules: {},
 })
