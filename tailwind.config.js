@@ -3,7 +3,7 @@ module.exports = {
     purge: {
         mode: 'all',
         preserveHtmlElements: false,
-        content: ['./src/**/*.{js,vue}', './public/index.html'],
+        content: ['./src/**/*.vue', './public/index.html'],
         options: {
             keyframes: true,
         },

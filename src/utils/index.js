@@ -1,4 +1,4 @@
-import { formatDistanceToNowStrict, parseISO } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import nl from 'date-fns/locale/nl'
 
 /**
@@ -33,8 +33,7 @@ export const fetchStats = () =>
  * @param {Date} label
  * @returns {string}
  */
-export const formatLabel = (label) =>
-    formatDistanceToNowStrict(label, { locale: nl })
+export const formatLabel = (label) => format(label, 'H:mm', { locale: nl })
 
 /**
  * Format a floating point to a temperature string.
@@ -52,3 +51,6 @@ export const formatHumidity = (value) =>
         style: 'unit',
         unit: 'percent',
     }).format(value)
+
+export const formatDateTime = (date) =>
+    format(date, 'd MMMM H:mm', { locale: nl })

@@ -19,12 +19,10 @@ const CHART_OPTIONS = () => ({
     scales: {
         x: {
             stacked: true,
-            title: { display: true, text: 'Tijd geleden' },
+            title: { display: true, text: 'Tijd' },
         },
         y: {
             stacked: true,
-            // min: 40,
-            // max: 60,
             title: { display: true, text: 'Luchtvochtigheid in %' },
         },
     },
@@ -50,6 +48,9 @@ const CHART_OPTIONS = () => ({
     },
 })
 
+/**
+ * @param {Stats[]} stats
+ */
 export const createChartConfig = (stats) =>
     stats.reduce((acc, curr) => {
         acc.labels.push(formatLabel(curr.moment))
