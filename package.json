@@ -7,7 +7,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "chart.js": "^3.3.2",
+    "chart.js": "^3.6.2",
     "core-js": "^3.19.3",
     "date-fns": "^2.27.0",
     "tailwindcss": "^2.2.2",
