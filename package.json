@@ -12,7 +12,7 @@
     "date-fns": "^2.28.0",
     "tailwindcss": "^3.0.18",
     "vue": "^3.2.27",
-    "vue-chart-3": "^3.0.7",
+    "vue-chart-3": "^3.0.9",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
