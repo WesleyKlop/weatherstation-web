@@ -24,7 +24,7 @@
     "@vue/cli-service": "^5.0.4",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.16.0",
+    "eslint": "^8.17.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^9.0.1",
     "lint-staged": "^12.4.3",
