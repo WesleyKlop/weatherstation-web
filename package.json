@@ -9,7 +9,7 @@
   "dependencies": {
     "chart.js": "^3.9.1",
     "core-js": "^3.34.0",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.0.0",
     "tailwindcss": "^3.3.6",
     "vue": "^3.3.11",
     "vue-chart-3": "^3.1.8",
